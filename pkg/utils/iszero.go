@@ -38,4 +38,3 @@ func IsZero(v interface{}) bool {
 		return reflect.DeepEqual(val.Interface(), reflect.Zero(val.Type()).Interface())
 	}
 }
-

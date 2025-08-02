@@ -210,4 +210,3 @@ func (dialectopr Dialector) RollbackTo(tx *gorm.DB, name string) error {
 	tx.Exec("ROLLBACK TRANSACTION " + name)
 	return nil
 }
-

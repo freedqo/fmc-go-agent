@@ -11,4 +11,3 @@ type MonitorIf interface {
 	// RestStart 重启监控
 	RestStart() (done <-chan struct{}, err error)
 }
-

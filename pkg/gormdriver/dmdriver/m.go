@@ -10,7 +10,7 @@ import (
 	"database/sql"
 	"database/sql/driver"
 	"fmt"
-	"github.com/freedqo/fmc-go-agent/pkg/gormdriver/dmdriver/parser"
+	"github.com/freedqo/fmc-go-agents/pkg/gormdriver/dmdriver/parser"
 	"golang.org/x/text/encoding"
 	"sync/atomic"
 )

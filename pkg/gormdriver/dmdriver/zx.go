@@ -9,7 +9,7 @@ import (
 	"database/sql"
 	"database/sql/driver"
 	"errors"
-	"github.com/freedqo/fmc-go-agent/pkg/gormdriver/dmdriver/util"
+	"github.com/freedqo/fmc-go-agents/pkg/gormdriver/dmdriver/util"
 	"io"
 	"regexp"
 	"strings"

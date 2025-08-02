@@ -8,7 +8,7 @@ import (
 	"bytes"
 	"crypto/tls"
 	"fmt"
-	"github.com/freedqo/fmc-go-agent/pkg/gormdriver/dmdriver/security"
+	"github.com/freedqo/fmc-go-agents/pkg/gormdriver/dmdriver/security"
 	"net"
 	"strconv"
 	"time"

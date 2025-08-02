@@ -1,9 +1,9 @@
 package gencurd
 
 import (
-	"github.com/freedqo/fmc-go-agent/scripts/cmd/dbgen/gdb"
-	"github.com/freedqo/fmc-go-agent/scripts/cmd/dbgen/options"
-	"github.com/freedqo/fmc-go-agent/scripts/cmd/dbgen/utils"
+	"github.com/freedqo/fmc-go-agents/scripts/cmd/dbgen/gdb"
+	"github.com/freedqo/fmc-go-agents/scripts/cmd/dbgen/options"
+	"github.com/freedqo/fmc-go-agents/scripts/cmd/dbgen/utils"
 	"github.com/urfave/cli/v2"
 )
 

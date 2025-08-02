@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/freedqo/fmc-go-agent/scripts/cmd/build"
-	"github.com/freedqo/fmc-go-agent/scripts/cmd/dbgen"
-	"github.com/freedqo/fmc-go-agent/scripts/cmd/receiverifgen"
-	"github.com/freedqo/fmc-go-agent/scripts/cmd/sm3"
-	"github.com/freedqo/fmc-go-agent/scripts/cmd/swag"
+	"github.com/freedqo/fmc-go-agents/scripts/cmd/build"
+	"github.com/freedqo/fmc-go-agents/scripts/cmd/dbgen"
+	"github.com/freedqo/fmc-go-agents/scripts/cmd/receiverifgen"
+	"github.com/freedqo/fmc-go-agents/scripts/cmd/sm3"
+	"github.com/freedqo/fmc-go-agents/scripts/cmd/swag"
 	"github.com/urfave/cli/v2"
 	"os"
 )

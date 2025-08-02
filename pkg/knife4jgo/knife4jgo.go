@@ -161,4 +161,3 @@ func (k *Knife4jGo) handlerAllOf(data interface{}) interface{} {
 	}
 	return data
 }
-

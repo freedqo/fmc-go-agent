@@ -106,11 +106,11 @@ func (a *WebApp) ListenMonitor(start func(ctx context.Context) (done <-chan stru
 		// 启动服务监听
 		done, err := start(a.ctx)
 		if err != nil {
-			panic(err)
+			a.log.Errorf("启动后台通用监控服务异常:%s", err)
+			return
 		}
 		a.log.Infof("后台通用监控服务已启动")
 		<-done
-		a.interrupt <- os.Interrupt
 	}()
 }
 

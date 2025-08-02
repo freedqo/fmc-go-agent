@@ -2,8 +2,8 @@ package gdb
 
 import (
 	"fmt"
-	"github.com/freedqo/fmc-go-agent/scripts/cmd/dbgen/options"
-	"github.com/freedqo/fmc-go-agent/scripts/cmd/dbgen/utils"
+	"github.com/freedqo/fmc-go-agents/scripts/cmd/dbgen/options"
+	"github.com/freedqo/fmc-go-agents/scripts/cmd/dbgen/utils"
 	"gorm.io/driver/mysql"
 	"gorm.io/gen"
 	"gorm.io/gen/field"

@@ -165,4 +165,3 @@ func (r *RocketMQ) buildMessage(msg *Message) ([]*primitive.Message, error) {
 
 	return rMsgList, nil
 }
-

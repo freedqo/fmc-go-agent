@@ -216,4 +216,3 @@ func outputInserted(db *gorm.DB) {
 		}
 	}
 }
-

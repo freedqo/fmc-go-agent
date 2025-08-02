@@ -102,4 +102,3 @@ func (r *RocketMQ) buildConsumerGroupName(topic, tagExpression, prefix string) s
 
 	return prefix + "-" + group
 }
-

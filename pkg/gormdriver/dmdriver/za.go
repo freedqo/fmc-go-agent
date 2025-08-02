@@ -8,7 +8,7 @@ package dmdriver
 import (
 	"bytes"
 	"fmt"
-	"github.com/freedqo/fmc-go-agent/pkg/gormdriver/dmdriver/i18n"
+	"github.com/freedqo/fmc-go-agents/pkg/gormdriver/dmdriver/i18n"
 	"runtime"
 )
 

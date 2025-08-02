@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-//  This is a mirror of golang.org/x/crypto/internal/subtle.
+// This is a mirror of golang.org/x/crypto/internal/subtle.
 package security
 
 import "unsafe"

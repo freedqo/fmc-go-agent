@@ -79,4 +79,3 @@ func GetStructTagString(in interface{}, tagName string) ([]string, error) {
 	}
 	return tagStringlist, nil
 }
-

@@ -7,7 +7,7 @@ package dmdriver
 import (
 	"context"
 	"database/sql/driver"
-	"github.com/freedqo/fmc-go-agent/pkg/gormdriver/dmdriver/i18n"
+	"github.com/freedqo/fmc-go-agents/pkg/gormdriver/dmdriver/i18n"
 
 	"sync"
 )

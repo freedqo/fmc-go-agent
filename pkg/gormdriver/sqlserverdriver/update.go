@@ -14,4 +14,3 @@ func Update(db *gorm.DB) {
 
 	updateFunc(db)
 }
-

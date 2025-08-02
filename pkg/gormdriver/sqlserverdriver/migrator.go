@@ -297,4 +297,3 @@ func (m Migrator) CurrentDatabase() (name string) {
 	m.DB.Raw("SELECT DB_NAME() AS [Current Database]").Row().Scan(&name)
 	return
 }
-

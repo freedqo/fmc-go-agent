@@ -106,4 +106,3 @@ func (m *Message) AddKey(key string) {
 	}
 	m.Keys = append(m.Keys, key)
 }
-

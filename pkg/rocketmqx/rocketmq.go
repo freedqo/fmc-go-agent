@@ -140,4 +140,3 @@ func (r *RocketMQ) PublishSync(ctx context.Context, msg *Message, optFuncs ...Pr
 func (r *RocketMQ) PublishAsync(ctx context.Context, msg *Message, callback SendAsyncCallback, optFuncs ...ProducerFunc) error {
 	return r.publish(ctx, msg, true, callback, optFuncs...)
 }
-

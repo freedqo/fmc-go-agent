@@ -1,8 +1,8 @@
 package dbgen
 
 import (
-	"github.com/freedqo/fmc-go-agent/scripts/cmd/dbgen/gencurd"
-	"github.com/freedqo/fmc-go-agent/scripts/cmd/dbgen/genmodel"
+	"github.com/freedqo/fmc-go-agents/scripts/cmd/dbgen/gencurd"
+	"github.com/freedqo/fmc-go-agents/scripts/cmd/dbgen/genmodel"
 	"github.com/urfave/cli/v2"
 )
 

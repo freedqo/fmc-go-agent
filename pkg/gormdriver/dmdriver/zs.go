@@ -7,7 +7,7 @@ package dmdriver
 
 import (
 	"fmt"
-	"github.com/freedqo/fmc-go-agent/pkg/gormdriver/dmdriver/util"
+	"github.com/freedqo/fmc-go-agents/pkg/gormdriver/dmdriver/util"
 	"math"
 	"strconv"
 	"strings"

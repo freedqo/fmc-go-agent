@@ -25,4 +25,3 @@ func (c *CronLog) Error(err error, msg string, keysAndValues ...interface{}) {
 }
 
 var _ cron.Logger = &CronLog{}
-

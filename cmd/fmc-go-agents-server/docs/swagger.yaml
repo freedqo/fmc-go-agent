@@ -1,0 +1,1089 @@
+definitions:
+  chatm.ChatCompletionsReq:
+    properties:
+      frequency_penalty:
+        description: 默认为 0 -2.0 到 2.0 之间的数字。正值根据文本目前的存在频率惩罚新标记,降低模型重复相同行的可能性。  有关频率和存在惩罚的更多信息。
+        type: number
+      logit_bias:
+        description: |-
+          修改指定标记出现在补全中的可能性。
+
+          接受一个 JSON 对象,该对象将标记(由标记器指定的标记 ID)映射到相关的偏差值(-100 到 100)。从数学上讲,偏差在对模型进行采样之前添加到模型生成的 logit
+          中。确切效果因模型而异,但-1 和 1 之间的值应减少或增加相关标记的选择可能性;如-100 或 100 这样的值应导致相关标记的禁用或独占选择。
+      max_tokens:
+        description: |-
+          默认为 inf
+          在聊天补全中生成的最大标记数。
+
+          输入标记和生成标记的总长度受模型的上下文长度限制。计算标记的 Python 代码示例。
+        type: integer
+      messages:
+        description: 至今为止对话所包含的消息列表。Python 代码示例。
+        items:
+          $ref: '#/definitions/chatm.Message'
+        type: array
+      model:
+        description: 要使用的模型的 ID。有关哪些模型可与聊天 API 一起使用的详细信息,请参阅模型端点兼容性表。
+        type: string
+      "n":
+        description: |-
+          默认为 1
+          为每个输入消息生成多少个聊天补全选择。
+        type: integer
+      presence_penalty:
+        description: |-
+          -2.0 和 2.0 之间的数字。正值会根据到目前为止是否出现在文本中来惩罚新标记，从而增加模型谈论新主题的可能性。
+          [查看有关频率和存在惩罚的更多信息。](https://platform.openai.com/docs/api-reference/parameter-details)
+        type: number
+      response_format:
+        additionalProperties: true
+        description: |-
+          指定模型必须输出的格式的对象。  将 { "type": "json_object" } 启用 JSON 模式,这可以确保模型生成的消息是有效的 JSON。  重要提示:使用
+          JSON 模式时,还必须通过系统或用户消息指示模型生成
+          JSON。如果不这样做,模型可能会生成无休止的空白流,直到生成达到令牌限制,从而导致延迟增加和请求“卡住”的外观。另请注意,如果
+          finish_reason="length",则消息内容可能会被部分切断,这表示生成超过了 max_tokens 或对话超过了最大上下文长度。  显示属性
+        type: object
+      seen:
+        description: |-
+          此功能处于测试阶段。如果指定,我们的系统将尽最大努力确定性地进行采样,以便使用相同的种子和参数进行重复请求应返回相同的结果。不能保证确定性,您应该参考
+          system_fingerprint 响应参数来监控后端的更改。
+        type: integer
+      stop:
+        description: 默认为 null 最多 4 个序列,API 将停止进一步生成标记。
+        type: string
+      stream:
+        description: |-
+          默认为 false 如果设置,则像在 ChatGPT 中一样会发送部分消息增量。标记将以仅数据的服务器发送事件的形式发送,这些事件在可用时,并在 data: [DONE]
+          消息终止流。Python 代码示例。
+        type: boolean
+      temperature:
+        description: |-
+          使用什么采样温度，介于 0 和 2 之间。较高的值（如 0.8）将使输出更加随机，而较低的值（如 0.2）将使输出更加集中和确定。
+          我们通常建议改变这个或`top_p`但不是两者。
+        type: number
+      tool_choice:
+        additionalProperties: true
+        description: |-
+          控制模型调用哪个函数(如果有的话)。none 表示模型不会调用函数,而是生成消息。auto 表示模型可以在生成消息和调用函数之间进行选择。通过 {"type":
+          "function", "function": {"name": "my_function"}} 强制模型调用该函数。  如果没有函数存在,默认为
+          none。如果有函数存在,默认为 auto。  显示可能的类型
+        type: object
+      tools:
+        description: 模型可以调用的一组工具列表。目前,只支持作为工具的函数。使用此功能来提供模型可以为之生成 JSON 输入的函数列表。
+        items:
+          type: string
+        type: array
+      top_p:
+        description: |-
+          一种替代温度采样的方法，称为核采样，其中模型考虑具有 top_p 概率质量的标记的结果。所以 0.1 意味着只考虑构成前 10% 概率质量的标记。
+          我们通常建议改变这个或`temperature`但不是两者。
+        type: integer
+      user:
+        description: |-
+          代表您的最终用户的唯一标识符，可以帮助 OpenAI
+          监控和检测滥用行为。[了解更多](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids)。
+        type: string
+    type: object
+  chatm.Message:
+    properties:
+      content:
+        type: string
+      role:
+        type: string
+    type: object
+  dbm.Page:
+    properties:
+      index:
+        description: 当前页码
+        type: integer
+      size:
+        description: 每页大小
+        type: integer
+      total:
+        description: 总条数
+        type: integer
+    type: object
+  knowdbm.DeleteFilesReq:
+    properties:
+      ids:
+        items:
+          type: string
+        type: array
+    type: object
+  knowdbm.DeleteFilesResp:
+    type: object
+  knowdbm.GetFileListResp:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/knowdbm.TypeList'
+        type: array
+    type: object
+  knowdbm.TFileInfo:
+    properties:
+      date:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      path:
+        type: string
+      size:
+        type: string
+      type:
+        type: string
+    type: object
+  knowdbm.TypeList:
+    properties:
+      fileList:
+        items:
+          $ref: '#/definitions/knowdbm.TFileInfo'
+        type: array
+      type:
+        type: string
+    type: object
+  model.Ai_chat_logs:
+    properties:
+      content:
+        description: 消息内容
+        type: string
+      created_at:
+        description: 消息创建时间
+        type: string
+      id:
+        description: 记录唯一id
+        type: string
+      order:
+        description: 消息顺序
+        type: integer
+      role:
+        description: 消息角色
+        type: string
+      session_id:
+        description: 会话唯一标识
+        type: string
+      user_id:
+        description: 用户ID
+        type: string
+    type: object
+  promptm.CreatReq:
+    properties:
+      content:
+        description: 提示词内容
+        type: string
+      description:
+        description: 提示词描述
+        type: string
+      name:
+        description: 提示词名称
+        type: string
+      type:
+        description: 提示词类型
+        type: string
+      userID:
+        description: 创建用户ID
+        type: string
+    type: object
+  promptm.CreatResp:
+    properties:
+      content:
+        description: 提示词内容
+        type: string
+      created_at:
+        description: 创建时间
+        type: string
+      description:
+        description: 提示词描述
+        type: string
+      id:
+        description: 提示词唯一ID
+        type: string
+      name:
+        description: 提示词名称
+        type: string
+      type:
+        description: 提示词类型
+        type: string
+      updated_at:
+        description: 更新时间
+        type: string
+      userID:
+        description: 创建用户ID
+        type: string
+    type: object
+  promptm.DeleteReq:
+    properties:
+      ids:
+        items:
+          type: string
+        type: array
+    type: object
+  promptm.DeleteResp:
+    type: object
+  promptm.GetPromptTemplateResp:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/promptm.GetPromptTemplateRespData'
+        type: array
+    type: object
+  promptm.GetPromptTemplateRespData:
+    properties:
+      content:
+        description: 提示词模板内容
+        type: string
+      description:
+        description: 提示词模板描述
+        type: string
+      name:
+        description: 提示词模板名称
+        type: string
+    type: object
+  promptm.QueryReq:
+    properties:
+      Content:
+        description: 提示词内容(md格式)
+        type: string
+      CreatedAt:
+        description: 创建时间
+        type: string
+      Description:
+        description: 提示词描述
+        type: string
+      ID:
+        description: 提示词唯一ID
+        type: string
+      IsLike:
+        description: 是否模糊查询
+        type: boolean
+      Name:
+        description: 提示词名称
+        type: string
+      OrderBy:
+        description: 排序字段，例如 "字段名 asc" 或 "字段名 desc"
+        type: string
+      Page:
+        allOf:
+        - $ref: '#/definitions/dbm.Page'
+        description: 分页信息
+      Type:
+        description: 提示词类型
+        type: string
+      UpdatedAt:
+        description: 更新时间
+        type: string
+      UserID:
+        description: 创建用户ID
+        type: string
+    type: object
+  promptm.QueryResp:
+    properties:
+      Page:
+        allOf:
+        - $ref: '#/definitions/dbm.Page'
+        description: 分页信息
+      list:
+        items:
+          $ref: '#/definitions/promptm.QueryRespData'
+        type: array
+    type: object
+  promptm.QueryRespData:
+    properties:
+      content:
+        description: 提示词内容
+        type: string
+      created_at:
+        description: 创建时间
+        type: string
+      description:
+        description: 提示词描述
+        type: string
+      id:
+        description: 提示词唯一ID
+        type: string
+      name:
+        description: 提示词名称
+        type: string
+      type:
+        description: 提示词类型
+        type: string
+      updated_at:
+        description: 更新时间
+        type: string
+      userID:
+        description: 创建用户ID
+        type: string
+    type: object
+  promptm.UpdateReq:
+    properties:
+      content:
+        description: 提示词内容
+        type: string
+      description:
+        description: 提示词描述
+        type: string
+      id:
+        description: 提示词唯一ID
+        type: string
+      name:
+        description: 提示词名称
+        type: string
+      type:
+        description: 提示词类型
+        type: string
+    type: object
+  promptm.UpdateResp:
+    properties:
+      content:
+        description: 提示词内容
+        type: string
+      created_at:
+        description: 创建时间
+        type: string
+      description:
+        description: 提示词描述
+        type: string
+      id:
+        description: 提示词唯一ID
+        type: string
+      name:
+        description: 提示词名称
+        type: string
+      type:
+        description: 提示词类型
+        type: string
+      updated_at:
+        description: 更新时间
+        type: string
+      userID:
+        description: 创建用户ID
+        type: string
+    type: object
+  sessionm.ChatLog:
+    properties:
+      content:
+        description: 消息内容
+        type: string
+      role:
+        description: 消息角色
+        type: string
+      timestamp:
+        description: 消息时间戳
+        type: integer
+    type: object
+  sessionm.CreatSessionReq:
+    properties:
+      userId:
+        type: string
+    type: object
+  sessionm.CreatSessionResp:
+    properties:
+      sessionId:
+        type: string
+    type: object
+  sessionm.DeleteChatLogsReq:
+    properties:
+      ids:
+        items:
+          type: string
+        type: array
+    type: object
+  sessionm.DeleteChatLogsResp:
+    type: object
+  sessionm.DeleteSessionsReq:
+    properties:
+      sessionIds:
+        items:
+          type: string
+        type: array
+    type: object
+  sessionm.DeleteSessionsResp:
+    type: object
+  sessionm.QuerySessionChatLogsByUserReq:
+    properties:
+      promptType:
+        description: 提示词类型
+        type: string
+      userId:
+        description: 用户id
+        type: string
+    type: object
+  sessionm.QuerySessionChatLogsByUserResp:
+    properties:
+      chatLogs:
+        description: 聊天记录
+        items:
+          $ref: '#/definitions/sessionm.ChatLog'
+        type: array
+      promptType:
+        description: 提示词类型
+        type: string
+      sessionId:
+        description: 会话id
+        type: string
+    type: object
+  sessionm.SessionChatLogListReq:
+    properties:
+      sessionId:
+        type: string
+    type: object
+  sessionm.SessionChatLogListResp:
+    properties:
+      chatLogs:
+        items:
+          $ref: '#/definitions/model.Ai_chat_logs'
+        type: array
+      sessionId:
+        type: string
+    type: object
+  sessionm.UserSessionListReq:
+    properties:
+      page:
+        $ref: '#/definitions/dbm.Page'
+      userId:
+        type: string
+    type: object
+  sessionm.UserSessionListResp:
+    properties:
+      page:
+        $ref: '#/definitions/dbm.Page'
+      sessionList:
+        items:
+          $ref: '#/definitions/sessionm.UserSessionListRespData'
+        type: array
+    type: object
+  sessionm.UserSessionListRespData:
+    properties:
+      creatAt:
+        type: string
+      sessionId:
+        type: string
+      title:
+        type: string
+    type: object
+  webapp.Response:
+    properties:
+      code:
+        description: 错误码值
+        type: integer
+      data:
+        description: 响应数据
+      message:
+        description: 错误消息
+        type: string
+    type: object
+info:
+  contact:
+    name: fmc-go-agents-server freedqo
+  description: fmc-go-agents-server服务Api文档
+  termsOfService: fmc-go-agents-server-最终解释权
+  title: fmc-go-agents-server服务Api文档
+  version: "1.0"
+paths:
+  /knowdb/files:
+    delete:
+      consumes:
+      - application/json
+      description: 根据文件ID删除文件
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      - description: 文件ID列表
+        in: body
+        name: ids
+        required: true
+        schema:
+          $ref: '#/definitions/knowdbm.DeleteFilesReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/webapp.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/knowdbm.DeleteFilesResp'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/webapp.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/webapp.Response'
+      summary: 删除文件
+      tags:
+      - 知识库管理
+    get:
+      consumes:
+      - application/json
+      description: 根据条件获取文件列表
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      - description: 文件类型
+        in: query
+        name: type
+        type: string
+      - default: 1
+        description: 页码
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: 每页数量
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/webapp.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/knowdbm.GetFileListResp'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/webapp.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/webapp.Response'
+      summary: 获取文件列表
+      tags:
+      - 知识库管理
+    post:
+      consumes:
+      - multipart/form-data
+      description: 上传单个或多个文件
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      - description: 文件列表
+        in: formData
+        name: files
+        required: true
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/webapp.Response'
+            - properties:
+                data:
+                  additionalProperties:
+                    items:
+                      type: string
+                    type: array
+                  type: object
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/webapp.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/webapp.Response'
+      summary: 上传文件
+      tags:
+      - 知识库管理
+  /knowdb/files/download:
+    get:
+      consumes:
+      - application/json
+      description: 根据文件路径下载文件
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      - description: 文件Id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: file
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/webapp.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/webapp.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/webapp.Response'
+      summary: 下载文件
+      tags:
+      - 知识库管理
+  /openai/v1/chat/completions:
+    post:
+      consumes:
+      - application/json
+      description: 与Ai Agent聊天
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      - description: 用户与模型对话令牌
+        in: header
+        name: SessionId
+        required: true
+        type: string
+      - description: 请求参数
+        in: body
+        name: chatm.ChatCompletionsReq
+        required: true
+        schema:
+          $ref: '#/definitions/chatm.ChatCompletionsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/webapp.Response'
+      summary: 与Ai Agent聊天
+      tags:
+      - Openai Api 接口管理
+  /openai/v1/models:
+    get:
+      consumes:
+      - application/json
+      description: 获取可用模型列表
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/webapp.Response'
+      summary: 获取可用模型列表
+      tags:
+      - Openai Api 接口管理
+  /prompt/creat:
+    post:
+      consumes:
+      - application/json
+      description: 添加提示词
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/promptm.CreatReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/webapp.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/promptm.CreatResp'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/webapp.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/webapp.Response'
+      summary: 添加提示词
+      tags:
+      - 提示词管理
+  /prompt/delete:
+    delete:
+      consumes:
+      - application/json
+      description: 删除提示词
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      - description: 请求参数
+        in: body
+        name: promptm.DeleteReq
+        required: true
+        schema:
+          $ref: '#/definitions/promptm.DeleteReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/webapp.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/promptm.DeleteResp'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/webapp.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/webapp.Response'
+      summary: 删除提示词
+      tags:
+      - 提示词管理
+  /prompt/getPromptTemplate:
+    get:
+      consumes:
+      - application/json
+      description: 获取系统提示词模板
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/webapp.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/promptm.GetPromptTemplateResp'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/webapp.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/webapp.Response'
+      summary: 获取系统提示词模板
+      tags:
+      - 提示词管理
+  /prompt/query:
+    post:
+      consumes:
+      - application/json
+      description: 查询提示词
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      - description: 请求参数
+        in: body
+        name: promptm.QueryReq
+        schema:
+          $ref: '#/definitions/promptm.QueryReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/webapp.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/promptm.QueryResp'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/webapp.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/webapp.Response'
+      summary: 查询提示词
+      tags:
+      - 提示词管理
+  /prompt/update:
+    put:
+      consumes:
+      - application/json
+      description: 修改提示词
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      - description: 请求参数
+        in: body
+        name: promptm.UpdateReq
+        required: true
+        schema:
+          $ref: '#/definitions/promptm.UpdateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/webapp.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/promptm.UpdateResp'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/webapp.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/webapp.Response'
+      summary: 修改提示词
+      tags:
+      - 提示词管理
+  /session/creatSession:
+    post:
+      consumes:
+      - application/json
+      description: 创建会话
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      - description: 请求参数
+        in: body
+        name: sessionm.CreatSessionReq
+        required: true
+        schema:
+          $ref: '#/definitions/sessionm.CreatSessionReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            allOf:
+            - $ref: '#/definitions/webapp.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/sessionm.CreatSessionResp'
+              type: object
+      summary: 创建会话
+      tags:
+      - 会话管理
+  /session/deleteChatLogs:
+    delete:
+      consumes:
+      - application/json
+      description: 删除多条对话记录
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      - description: 请求参数
+        in: body
+        name: sessionm.DeleteChatLogsReq
+        required: true
+        schema:
+          $ref: '#/definitions/sessionm.DeleteChatLogsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            allOf:
+            - $ref: '#/definitions/webapp.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/sessionm.DeleteChatLogsResp'
+              type: object
+      summary: 删除多条对话记录
+      tags:
+      - 会话管理
+  /session/deleteSessions:
+    delete:
+      consumes:
+      - application/json
+      description: 删除多个用户对话
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      - description: 请求参数
+        in: body
+        name: sessionm.DeleteSessionsReq
+        required: true
+        schema:
+          $ref: '#/definitions/sessionm.DeleteSessionsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            allOf:
+            - $ref: '#/definitions/webapp.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/sessionm.DeleteSessionsResp'
+              type: object
+      summary: 删除多个用户对话
+      tags:
+      - 会话管理
+  /session/querySessionChatLogsByUser:
+    post:
+      consumes:
+      - application/json
+      description: 根据用户信息和提示词类型获取唯一会话记录
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      - description: 请求参数
+        in: body
+        name: sessionm.QuerySessionChatLogsByUserReq
+        required: true
+        schema:
+          $ref: '#/definitions/sessionm.QuerySessionChatLogsByUserReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            allOf:
+            - $ref: '#/definitions/webapp.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/sessionm.QuerySessionChatLogsByUserResp'
+              type: object
+      summary: 根据用户信息和提示词类型获取唯一会话记录
+      tags:
+      - 会话管理
+  /session/sessionChatLogList:
+    post:
+      consumes:
+      - application/json
+      description: 查询聊天内容
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      - description: 请求参数
+        in: body
+        name: sessionm.SessionChatLogListReq
+        required: true
+        schema:
+          $ref: '#/definitions/sessionm.SessionChatLogListReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            allOf:
+            - $ref: '#/definitions/webapp.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/sessionm.SessionChatLogListResp'
+              type: object
+      summary: 查询聊天内容
+      tags:
+      - 会话管理
+  /session/userSessionList:
+    post:
+      consumes:
+      - application/json
+      description: 查询用户对话列表
+      parameters:
+      - description: Tokenid 用户登录令牌
+        in: header
+        name: Tokenid
+        required: true
+        type: string
+      - description: 请求参数
+        in: body
+        name: sessionm.UserSessionListReq
+        required: true
+        schema:
+          $ref: '#/definitions/sessionm.UserSessionListReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            allOf:
+            - $ref: '#/definitions/webapp.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/sessionm.UserSessionListResp'
+              type: object
+      summary: 查询用户对话列表
+      tags:
+      - 会话管理
+swagger: "2.0"

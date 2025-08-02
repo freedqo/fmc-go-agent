@@ -31,4 +31,3 @@ func SplitString(s string, maxLength int) []string {
 	}
 	return result
 }
-

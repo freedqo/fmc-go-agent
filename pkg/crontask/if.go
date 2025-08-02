@@ -1,7 +1,7 @@
 package crontask
 
 import (
-	"github.com/freedqo/fmc-go-agent/pkg/commif"
+	"github.com/freedqo/fmc-go-agents/pkg/commif"
 )
 
 type If interface {

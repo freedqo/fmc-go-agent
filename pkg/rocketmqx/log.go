@@ -66,4 +66,3 @@ func convertFields(fields map[string]interface{}) []interface{} {
 }
 
 var _ rlog.Logger = &rocketMqLog{}
-

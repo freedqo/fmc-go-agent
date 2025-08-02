@@ -41,4 +41,3 @@ func (o *RocketMQOptions) Validate() []error {
 
 	return errs
 }
-

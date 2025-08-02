@@ -1,0 +1,8 @@
+[
+  {
+    "name": "主服务",
+    "url": "/knife4jgo/swagger.json",
+    "swaggerVersion": "2.0",
+    "location": "/docs/swagger.json"
+  }
+]
